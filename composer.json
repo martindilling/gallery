@@ -1,0 +1,63 @@
+{
+	"name": "martindilling/gallery",
+	"description": "A simple gallery.",
+	"keywords": [
+		"gallery"
+	],
+	"authors": [
+		{
+			"name": "Martin Dilling-Hansen",
+			"email": "martindilling@gmail.com",
+			"homepage": "http://martindilling.com",
+			"role": "Developer"
+		}
+	],
+	"license": "MIT",
+	"type": "project",
+	"require": {
+		"laravel/framework": "5.0.*",
+		"laravelcollective/html": "~5.0",
+		"itsgoingd/clockwork": "~1.7",
+		"intervention/image": "~2.1",
+		"intervention/imagecache": "~2.2"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.0",
+		"phpspec/phpspec": "~2.1",
+		"laracasts/generators": "~1.1",
+		"fzaninotto/faker": "~1.4"
+	},
+	"autoload": {
+		"classmap": [
+			"database"
+		],
+		"files": [
+			"app/helpers.php"
+		],
+		"psr-4": {
+			"Gallery\\": "app/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php -r \"copy('.env.example', '.env');\"",
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	}
+}
