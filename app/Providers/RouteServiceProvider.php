@@ -1,4 +1,6 @@
-<?php namespace Gallery\Providers;
+<?php
+
+namespace Gallery\Providers;
 
 use Gallery\Album;
 use Gallery\Image;
@@ -10,6 +12,7 @@ class RouteServiceProvider extends ServiceProvider
 {
     /**
      * This namespace is applied to the controller routes in your routes file.
+     *
      * In addition, it is set as the URL generator's root namespace.
      *
      * @var string
@@ -19,34 +22,32 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router $router
-     *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
     public function boot(Router $router)
     {
-        parent::boot($router);
-
         $router->model('user', User::class);
         $router->model('album', Album::class);
         $router->model('image', Image::class);
 
-        $router->bind('album_folder', function($value)
+        $router->bind('album_slug', function($value)
         {
-            return Album::where('folder', $value)->first();
+            return Album::where('slug', $value)->first();
         });
 
-        $router->bind('image_file', function($value)
+        $router->bind('image_slug', function($value)
         {
-            return Image::where('file', $value)->first();
+            return Image::where('slug', $value)->first();
         });
+
+        parent::boot($router);
     }
 
     /**
      * Define the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router $router
-     *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
     public function map(Router $router)

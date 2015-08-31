@@ -1,7 +1,8 @@
-<?php namespace Gallery\Events;
+<?php
 
-abstract class Event {
+namespace Gallery\Events;
 
-	//
-
+abstract class Event
+{
+    //
 }

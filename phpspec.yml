@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: Gallery
-        psr4_prefix: Gallery
+        namespace: App
+        psr4_prefix: App
         src_path: app

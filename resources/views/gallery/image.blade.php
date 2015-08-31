@@ -4,18 +4,18 @@
 
 	<ol class="breadcrumb">
 		<li><a href="{{ url('/') }}">Albums</a></li>
-		<li><a href="{{ url($image->album->folder) }}">{{ $image->album->title }}</a></li>
+		<li><a href="{{ url($image->album->slug) }}">{{ $image->album->title }}</a></li>
 		<li class="active">{{ $image->title }}</li>
 	</ol>
 
 	@if ($image)
 		<div class="row">
 			<div id="imagenav" class="navigation text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<a id="prev-img" href="{{ url($image->album->folder.'/'.$previous->file) }}" class="btn">
+				<a id="prev-img" href="{{ url($image->album->slug.'/'.$previous->slug) }}" class="btn">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</a>
 				{{ $current }} / {{ $count }}
-				<a id="next-img" href="{{ url($image->album->folder.'/'.$next->file) }}" class="btn">
+				<a id="next-img" href="{{ url($image->album->slug.'/'.$next->slug) }}" class="btn">
 					<span class="glyphicon glyphicon-chevron-right"></span>
 				</a>
 			</div>
@@ -40,7 +40,7 @@
 		<div class="social">
 			<?php
 				$share = array(
-					'url'   => url($image->album->folder.'/'.$image->image),
+					'url'   => url($image->album->slug.'/'.$image->image),
 					'image' => asset($image->imageurl),
 					'text'  => $image->text,
 				);
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		<div class="comments">
-			<fb:comments href="{{ url($image->album->folder.'/'.$image->image) }}"></fb:comments>
+			<fb:comments href="{{ url($image->album->slug.'/'.$image->image) }}"></fb:comments>
 		</div>
 	@else
 		No image

@@ -15,7 +15,7 @@
 			<?php $counter = 1 ?>
 			@foreach ($albums as $album)
 				<div class="grid album col-xs-4 col-sm-3 col-md-2 col-lg-2">
-					<a href="{{ url($album->folder) }}">
+					<a href="{{ url($album->slug) }}">
 						<span class="dim"></span>
 						<img src="{{ thumb_path($album->id, $album->cover->file) }}" class="img-responsive" alt="{{ $album->title }}">
 						<span class="title label label-default">{{ $album->title }}</span>

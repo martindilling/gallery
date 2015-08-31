@@ -36,9 +36,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     delete('images/{image}',        ['as' => 'admin.images.destroy', 'uses' => 'ImageController@destroy']);
 });
 
-get('/',                           ['as' => 'gallery.albums', 'uses' => 'GalleryController@albums']);
-get('{album_folder}',              ['as' => 'gallery.album',  'uses' => 'GalleryController@album']);
-get('{album_folder}/{image_file}', ['as' => 'gallery.image',  'uses' => 'GalleryController@image']);
+get('/',                         ['as' => 'gallery.albums', 'uses' => 'GalleryController@albums']);
+get('{album_slug}',              ['as' => 'gallery.album',  'uses' => 'GalleryController@album']);
+get('{album_slug}/{image_slug}', ['as' => 'gallery.image',  'uses' => 'GalleryController@image']);
 
 
 

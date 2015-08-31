@@ -24,7 +24,7 @@
 			<?php $counter = 1 ?>
 			@foreach ($images as $image)
 				<div class="grid image col-xs-4 col-sm-3 col-md-2 col-lg-2">
-					<a href="{{ url($image->album->folder.DIRECTORY_SEPARATOR.$image->file) }}" caption=" {{ $image->text }}" imgpage="{{ url($image->album->folder.'/'.$image->image) }}">
+					<a href="{{ url($image->album->slug.DIRECTORY_SEPARATOR.$image->slug) }}" caption=" {{ $image->text }}" imgpage="{{ url($image->album->slug.'/'.$image->image) }}">
 						<span class="dim"></span>
 						<img src="{{ thumb_path($image->album_id, $image->file) }}" class="img-responsive" alt="{{ $image->title }}">
 					</a>
