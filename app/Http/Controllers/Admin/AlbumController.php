@@ -14,7 +14,6 @@ use DB;
 
 class AlbumController extends Controller
 {
-
     /**
      * @return Response
      */

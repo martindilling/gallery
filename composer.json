@@ -20,7 +20,8 @@
 		"laravelcollective/html": "~5.1",
 		"itsgoingd/clockwork": "~1.7",
 		"intervention/image": "~2.1",
-		"intervention/imagecache": "~2.2"
+		"intervention/imagecache": "~2.2",
+		"barryvdh/laravel-ide-helper": "^2.1"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
@@ -53,6 +54,8 @@
 			"php artisan clear-compiled"
 		],
 		"post-update-cmd": [
+			"php artisan ide-helper:generate",
+			"php artisan ide-helper:meta",
 			"php artisan optimize"
 		],
 		"post-root-package-install": [

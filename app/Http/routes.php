@@ -11,15 +11,23 @@
 |
 */
 
-//Route::get('/', 'WelcomeController@index');
-//
-//Route::get('home', 'HomeController@index');
-//Route::get('upload', ['as' => 'upload.get', 'uses' => 'UploadController@get']);
-//Route::post('upload', ['as' => 'upload.post', 'uses' => 'UploadController@post']);
+
+// Authentication
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function()
+{
+    // Authentication routes...
+    Route::get( 'login',  'AuthController@getLogin');
+    Route::post('login',  'AuthController@postLogin');
+    Route::get( 'logout', 'AuthController@getLogout');
+
+    // Registration routes...
+    Route::get( 'register', 'AuthController@getRegister');
+    Route::post('register', 'AuthController@postRegister');
+});
 
 
-
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
+// Administration
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'namespace' => 'Admin'], function()
 {
     get(   'albums',                ['as' => 'admin.albums.index',   'uses' => 'AlbumController@index']);
     get(   'albums/create',         ['as' => 'admin.albums.create',  'uses' => 'AlbumController@create']);
@@ -36,13 +44,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     delete('images/{image}',        ['as' => 'admin.images.destroy', 'uses' => 'ImageController@destroy']);
 });
 
+
+// Gallery
 get('/',                         ['as' => 'gallery.albums', 'uses' => 'GalleryController@albums']);
 get('{album_slug}',              ['as' => 'gallery.album',  'uses' => 'GalleryController@album']);
 get('{album_slug}/{image_slug}', ['as' => 'gallery.image',  'uses' => 'GalleryController@image']);
-
-
-
-Route::controllers([
-    'auth'     => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
-]);
