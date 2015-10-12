@@ -16,7 +16,7 @@
 				<div class="well">
 					<div class="row">
 						<div class="col-md-4 col-md-offset-4">
-							<img class="img-thumbnail img-responsive" src="{{ image_path($image->album_id, $image->file) }}" alt="{{ $image->title }}">
+							<img class="img-thumbnail img-responsive" src="{{ image_path($album, $image) }}" alt="{{ $image->title }}">
 						</div>
 					</div>
 					<hr>

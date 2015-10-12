@@ -92,7 +92,7 @@ function fit_image()
 					});
 			})
 			.attr('src', $('#loader').attr('imgfile'))
-			.attr('class', 'img-responsive img-full-height');
+			.attr('class', 'img-fluid img-full-height');
 	});
 
 

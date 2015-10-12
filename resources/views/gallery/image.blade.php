@@ -1,93 +1,107 @@
 @extends('master')
 
-@section('content')
+@section('title', "{$album->title} | {$image->title}")
 
-	<ol class="breadcrumb">
-		<li><a href="{{ url('/') }}">Albums</a></li>
-		<li><a href="{{ url($image->album->slug) }}">{{ $image->album->title }}</a></li>
-		<li class="active">{{ $image->title }}</li>
-	</ol>
+@section('meta')
+    <meta property="og:url"          content="{{ image_url($album, $image) }}" />
+    <meta property="og:type"         content="article" />
+    <meta property="og:title"        content="{{ $album->title }}" />
+    <meta property="og:description"  content="{{ $image->description or 'No description' }}" />
+    <meta property="og:image"        content="{{ facebook_path($album, $image) }}" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+@stop
+
+@section('content')
+	<div class="header">
+		@include('gallery.partials.breadcrumb', [
+			'breadcrumb' => [
+				['text' => 'Albums', 'url' => url('/')],
+				['text' => $album->title, 'url' => album_url($album)],
+				['text' => $image->title, 'url' => null],
+			]
+		])
+	</div>
 
 	@if ($image)
-		<div class="row">
-			<div id="imagenav" class="navigation text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<a id="prev-img" href="{{ url($image->album->slug.'/'.$previous->slug) }}" class="btn">
-					<span class="glyphicon glyphicon-chevron-left"></span>
+		<div class="image-navigation-row">
+			<div data-image-navigation class="image-navigation text-center">
+				<a data-previous-image class="arrow-link" href="{{ image_url($album, $previous) }}">
+                    <span class="icon-circle-left"></span>
+					<span class="sr-only">Previous</span>
 				</a>
-				{{ $current }} / {{ $count }}
-				<a id="next-img" href="{{ url($image->album->slug.'/'.$next->slug) }}" class="btn">
-					<span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="counter">
+					{{ $current }} / {{ $count }}
+				</span>
+				<a data-next-image class="arrow-link" href="{{ image_url($album, $next) }}">
+                    <span class="icon-circle-right"></span>
+					<span class="sr-only">Previous</span>
 				</a>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="fullimagecontainer col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<div id="loader" class="loading fullimage" rel="fitimage" imgfile="{{ asset(image_path($image->album_id, $image->file)) }}">
-					{{-- Here the image will be loaded --}}
-				</div>
-			</div>
+		<div class="big-image-row">
+            <div data-big-image-container class="big-image-container loading">
+                <img data-big-image class="big-image img-fluid" data-src="{{ image_path($album, $image) }}" src="" alt="{{ $image->title }}">
+            </div>
 		</div>
 
-		@if ($image->description)
-			<div class="row">
-				<div class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<div class="img-description">{!! bodyText($image->description) !!}</div>
-				</div>
-			</div>
-		@endif
+        <div class="image-description-row">
+            @include('gallery.partials.description', ['description' => $image->description])
+        </div>
 
-		<div class="social">
-			<?php
-				$share = array(
-					'url'   => url($image->album->slug.'/'.$image->image),
-					'image' => asset($image->imageurl),
-					'text'  => $image->text,
-				);
+        <hr class="m-b-0">
 
-				$facebook_like =
-					'http://www.facebook.com/plugins/like.php' .
-					'?href=' . $share['url'] .
-					'&width=450&height=21&colorscheme=light&layout=button_count' .
-					'&action=like&show_faces=false&send=false' .
-					'&appId=' . Config::get('filegallery.fb_app_id');
+		<div class="social-container">
+            <div class="social-row">
+                <div class="social">
+                    <div class="fb-like"
+                         data-href="{{ image_url($album, $image) }}"
+                         data-layout="button"
+                         data-action="like"
+                         data-show-faces="false"
+                         data-share="false"></div>
 
-				$pinterest =
-					'http://pinterest.com/pin/create/button/' .
-					'?url=' . $share['url'] .
-					'&media=' . $share['image'];
+                    <div class="fb-share-button"
+                         data-href="{{ image_url($album, $image) }}"
+                         data-layout="button"></div>
 
-				if ($share['text']) {
-					$pinterest .= '&description=' . $share['text'];
-				}
+                    <div class="fb-send"
+                         data-href="{{ image_url($album, $image) }}"></div>
 
-				$twitter = array(
-					'url'     => url($image->album->folder.'/'.$image->image),
-					'text'    => $image->text,
-					'via'     => null,
-					'hashtag' => null,
-				);
+                    <a href="{{ image_url($album, $image) }}"
+                       class="twitter-share-button"
+                       data-count="none">Tweet</a>
+                </div>
+            </div>
+        </div>
 
-			?>
+        <hr class="m-t-0">
 
-			<div class="social_links fb_likes">
-				<fb:like href="{{ $share['url'] }}" width="140" layout="button_count" show_faces="false" send="true"></fb:like>
-			</div>
-			<div class="social_links twitter">
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ $twitter['url'] }}" {{ ($twitter['text']) ? 'data-text="'.$twitter['text'].'"' : '' }} {{ ($twitter['via']) ? 'data-via="'.$twitter['via'].'"' : '' }} {{ ($twitter['hashtag']) ? 'data-hashtags="'.$twitter['hashtag'].'"' : '' }}>Tweet</a>
-				<script>
-					!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-				</script>
-			</div>
-			<div class="social_links pinterest">
-				<a href="{{ $pinterest }}" data-pin-do="buttonPin" data-pin-config="beside" target="_blank"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
-			</div>
+        <div class="comments-container">
+            <div class="comments-row">
+                <div class="comments">
+                    <div id="disqus_thread"></div>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+            </div>
 		</div>
-		<div class="comments">
-			<fb:comments href="{{ url($image->album->slug.'/'.$image->image) }}"></fb:comments>
-		</div>
-	@else
-		No image
+
+    @else
+        No image
 	@endif
+@stop
 
+@section('scripts')
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = '{{ config('gallery.disqus.shortname') }}';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
 @stop

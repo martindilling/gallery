@@ -18,7 +18,7 @@
 						<div class="col-md-2">
 
 							@if($album->cover)
-								<img class="img-thumbnail" src="{{ thumb_path($album->id, $album->cover->file) }}" alt="{{ $album->title }}">
+								<img class="img-thumbnail" src="{{ thumb_path($album, $album->cover) }}" alt="{{ $album->title }}">
 							@endif
 
 						</div>
@@ -53,7 +53,7 @@
 											{!! link_to_route('admin.images.edit', 'Edit', ['image' => $image], ['class' => 'btn btn-xs btn-primary']) !!}
 											{!! link_to_route('admin.images.destroy', 'Delete', ['image' => $image], ['class' => 'btn btn-xs btn-danger']) !!}
 										</div>
-										<img src="{{ thumb_path($image->album_id, $image->file) }}" alt="{{ $image->title }}">
+										<img src="{{ thumb_path($album, $image) }}" alt="{{ $image->title }}">
 										<div class="caption">
 											<strong>{{ $image->title }}</strong>
 											<div class="collapse collapseDescription">

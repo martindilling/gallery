@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.12 (LTS) on 2015-08-31.
+ * Generated for Laravel 5.1.19 (LTS) on 2015-10-03.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -738,11 +738,12 @@ namespace {
          * @param string $concrete
          * @param string $abstract
          * @param \Closure|string $implementation
+         * @return void 
          * @static 
          */
         public static function addContextualBinding($concrete, $abstract, $implementation){
             //Method inherited from \Illuminate\Container\Container            
-            return \Illuminate\Foundation\Application::addContextualBinding($concrete, $abstract, $implementation);
+            \Illuminate\Foundation\Application::addContextualBinding($concrete, $abstract, $implementation);
         }
         
         /**
@@ -1155,7 +1156,7 @@ namespace {
         }
         
         /**
-         * Bootstrap the application for HTTP requests.
+         * Bootstrap the application for artisan commands.
          *
          * @return void 
          * @static 
@@ -1270,7 +1271,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \Gallery\User|null 
+         * @return \App\User|null 
          * @static 
          */
         public static function user(){
@@ -1372,7 +1373,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \Gallery\User 
+         * @return \App\User 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1477,7 +1478,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \Gallery\User|null 
+         * @return \App\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1519,7 +1520,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \Gallery\User 
+         * @return \App\User 
          * @static 
          */
         public static function getLastAttempted(){
@@ -2492,10 +2493,11 @@ namespace {
          * Remove a cookie from the queue.
          *
          * @param string $name
+         * @return void 
          * @static 
          */
         public static function unqueue($name){
-            return \Illuminate\Cookie\CookieJar::unqueue($name);
+            \Illuminate\Cookie\CookieJar::unqueue($name);
         }
         
         /**
@@ -3758,7 +3760,7 @@ namespace {
          * @return string 
          * @static 
          */
-        public static function implode($column, $glue = null){
+        public static function implode($column, $glue = ''){
             return \Illuminate\Database\Query\Builder::implode($column, $glue);
         }
         
@@ -3825,6 +3827,17 @@ namespace {
          */
         public static function avg($column){
             return \Illuminate\Database\Query\Builder::avg($column);
+        }
+        
+        /**
+         * Alias for the "avg" method.
+         *
+         * @param string $column
+         * @return float|int 
+         * @static 
+         */
+        public static function average($column){
+            return \Illuminate\Database\Query\Builder::average($column);
         }
         
         /**
@@ -3980,6 +3993,30 @@ namespace {
          */
         public static function useWritePdo(){
             return \Illuminate\Database\Query\Builder::useWritePdo();
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */
+        public static function hasMacro($name){
+            return \Illuminate\Database\Query\Builder::hasMacro($name);
+        }
+        
+        /**
+         * Dynamically handle calls to the class.
+         *
+         * @param string $method
+         * @param array $parameters
+         * @return mixed 
+         * @throws \BadMethodCallException
+         * @static 
+         */
+        public static function macroCall($method, $parameters){
+            return \Illuminate\Database\Query\Builder::macroCall($method, $parameters);
         }
         
     }
@@ -4509,6 +4546,7 @@ namespace {
          * @param string $ability
          * @param callable|string $callback
          * @return $this 
+         * @throws \InvalidArgumentException
          * @static 
          */
         public static function define($ability, $callback){
@@ -4528,10 +4566,21 @@ namespace {
         }
         
         /**
+         * Register a callback to run before all Gate checks.
+         *
+         * @param callable $callback
+         * @return $this 
+         * @static 
+         */
+        public static function before($callback){
+            return \Illuminate\Auth\Access\Gate::before($callback);
+        }
+        
+        /**
          * Determine if the given ability should be granted for the current user.
          *
          * @param string $ability
-         * @param array|mixed $arguents
+         * @param array|mixed $arguments
          * @return bool 
          * @static 
          */
@@ -4543,7 +4592,7 @@ namespace {
          * Determine if the given ability should be denied for the current user.
          *
          * @param string $ability
-         * @param array|mixed $arguents
+         * @param array|mixed $arguments
          * @return bool 
          * @static 
          */
@@ -4555,7 +4604,7 @@ namespace {
          * Determine if the given ability should be granted for the current user.
          *
          * @param string $ability
-         * @param array|mixed $arguents
+         * @param array|mixed $arguments
          * @return bool 
          * @static 
          */
@@ -4587,7 +4636,7 @@ namespace {
         }
         
         /**
-         * Get a guard instance for the given uer.
+         * Get a guard instance for the given user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
          * @return static 
@@ -5060,6 +5109,8 @@ namespace {
         /**
          * Determine if the given content types match.
          *
+         * @param string $actual
+         * @param string $type
          * @return bool 
          * @static 
          */
@@ -6891,6 +6942,17 @@ namespace {
     class Queue extends \Illuminate\Support\Facades\Queue{
         
         /**
+         * Register an event listener for the after job event.
+         *
+         * @param mixed $callback
+         * @return void 
+         * @static 
+         */
+        public static function after($callback){
+            \Illuminate\Queue\QueueManager::after($callback);
+        }
+        
+        /**
          * Register an event listener for the daemon queue loop.
          *
          * @param mixed $callback
@@ -7708,6 +7770,8 @@ namespace {
         /**
          * Determine if the given content types match.
          *
+         * @param string $actual
+         * @param string $type
          * @return bool 
          * @static 
          */

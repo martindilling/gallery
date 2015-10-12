@@ -1,21 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:fb="http://ogp.me/ns/fb#">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Gallery</title>
-	<meta name="application-name" content="Gallery" />
-	<meta name="author" content="Martin Dilling-Hansen">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ config('gallery.sitename') }} | @yield('title')</title>
+	<meta name="application-name" content="{{ config('gallery.sitename') }}" />
+	<meta name="author" content="{{ config('gallery.author') }}">
 
+    <meta property="fb:app_id"    content="{{ config('gallery.facebook.appId') }}" />
+    <meta property="og:site_name" content="{{ config('gallery.sitename') }}" />
 	@yield('meta')
 
 	<!-- Styles -->
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+	<link href="{{ elixir('assets/css/gallery.css') }}" rel="stylesheet">
 	@yield('styles')
 </head>
 <body>
+    <script>
+        // Facebook
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '{{ config('gallery.facebook.appId') }}',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Twitter
+        !function(d,s,id){
+            var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+            if(!d.getElementById(id)){
+                js=d.createElement(s);js.id=id;
+                js.src=p+'://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js,fjs);
+            }
+        }(document, 'script', 'twitter-wjs');
+    </script>
 
 	<div class="container">
 		@if (Session::has('message'))
@@ -39,16 +67,18 @@
 
 		@yield('content')
 
-		<div class="page-footer text-center">
-			<small class="text-muted"><a href="https://github.com/martindilling/gallery" target="_blank">Gallery</a> by Martin Dilling-Hansen</small>
+        <hr>
+
+		<div class="footer">
+			<div class="page-footer text-center">
+				<small class="text-muted"><a href="https://github.com/martindilling/gallery" target="_blank">Gallery</a> by Martin Dilling-Hansen</small>
+			</div>
 		</div>
 	</div>
 
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<script src="{{ asset('/js/main.js') }}"></script>
-	@yield('scripts')
+	<script src="{{ elixir('assets/js/gallery.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

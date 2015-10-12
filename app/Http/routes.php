@@ -13,16 +13,16 @@
 
 
 // Authentication
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function()
+Route::group(['prefix' => '', 'namespace' => 'Auth'], function()
 {
     // Authentication routes...
-    Route::get( 'login',  'AuthController@getLogin');
-    Route::post('login',  'AuthController@postLogin');
-    Route::get( 'logout', 'AuthController@getLogout');
+    Route::get( 'login',  ['as' => 'login', 'uses' => 'AuthController@getLogin']);
+    Route::post('login',  ['as' => 'login.post', 'uses' => 'AuthController@postLogin']);
+    Route::get( 'logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
     // Registration routes...
-    Route::get( 'register', 'AuthController@getRegister');
-    Route::post('register', 'AuthController@postRegister');
+//    Route::get( 'register', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
+//    Route::post('register', ['as' => 'register.post', 'uses' => 'AuthController@postRegister']);
 });
 
 

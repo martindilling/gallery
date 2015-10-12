@@ -1,5 +1,33 @@
 <?php
 
+if (!function_exists('abort_if_album_not_found')) {
+    /**
+     * @param Gallery\Album|null $album
+     *
+     * @return string
+     */
+    function abort_if_album_not_found($album)
+    {
+        if ( ! $album) {
+            abort(404, 'The Album wasn\'t found.');
+        }
+    }
+}
+
+if (!function_exists('abort_if_image_not_found')) {
+    /**
+     * @param Gallery\Image|null $image
+     *
+     * @return string
+     */
+    function abort_if_image_not_found($image)
+    {
+        if ( ! $image) {
+            abort(404, 'The Image wasn\'t found.');
+        }
+    }
+}
+
 if (!function_exists('bodyText')) {
     /**
      * @param  string $text
@@ -27,53 +55,94 @@ if (!function_exists('uploads_path')) {
 
 
 
-if (!function_exists('image_template')) {
+if (!function_exists('album_url')) {
     /**
-     * @param string $template
+     * @param \Gallery\Album $album
      *
      * @return string
      */
-    function image_template($template = 'original')
+    function album_url(\Gallery\Album $album)
     {
-        return asset(config('imagecache.route') . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR);
+        return route('gallery.album', ['album_slug' => $album->slug]);
+    }
+}
+
+if (!function_exists('image_url')) {
+    /**
+     * @param \Gallery\Album $album
+     * @param \Gallery\Image $image
+     *
+     * @return string
+     */
+    function image_url(\Gallery\Album $album, \Gallery\Image $image)
+    {
+        return route('gallery.image', ['album_slug' => $album->slug, 'image_slug' => $image->slug]);
+    }
+}
+
+
+if (!function_exists('template_image_path')) {
+    /**
+     * @param string $template Template defined in the imagecache config.
+     * @param \Gallery\Album $album
+     * @param \Gallery\Image $image
+     *
+     * @return string
+     */
+    function template_image_path($template, \Gallery\Album $album, \Gallery\Image $image)
+    {
+        return asset(config('imagecache.route') . "/{$template}/{$album->id}/{$image->file}");
     }
 }
 
 if (!function_exists('original_path')) {
     /**
-     * @param string $albumId
-     * @param string $imageFile
+     * @param \Gallery\Album $album
+     * @param \Gallery\Image $image
      *
      * @return string
      */
-    function original_path($albumId, $imageFile = null)
+    function original_path(\Gallery\Album $album, \Gallery\Image $image)
     {
-        return image_template('original') . DIRECTORY_SEPARATOR . $albumId . DIRECTORY_SEPARATOR . $imageFile;
+        return template_image_path('original', $album, $image);
     }
 }
 
 if (!function_exists('image_path')) {
     /**
-     * @param string $albumId
-     * @param string $imageFile
+     * @param \Gallery\Album $album
+     * @param \Gallery\Image $image
      *
      * @return string
      */
-    function image_path($albumId, $imageFile = null)
+    function image_path(\Gallery\Album $album, \Gallery\Image $image)
     {
-        return image_template('gallery') . DIRECTORY_SEPARATOR . $albumId . DIRECTORY_SEPARATOR . $imageFile;
+        return template_image_path('gallery', $album, $image);
     }
 }
 
 if (!function_exists('thumb_path')) {
     /**
-     * @param string $albumId
-     * @param string $imageFile
+     * @param \Gallery\Album $album
+     * @param \Gallery\Image $image
      *
      * @return string
      */
-    function thumb_path($albumId, $imageFile = null)
+    function thumb_path(\Gallery\Album $album, \Gallery\Image $image)
     {
-        return image_template('thumbnail-256') . DIRECTORY_SEPARATOR . $albumId . DIRECTORY_SEPARATOR . $imageFile;
+        return template_image_path('thumbnail-512', $album, $image);
+    }
+}
+
+if (!function_exists('facebook_path')) {
+    /**
+     * @param \Gallery\Album $album
+     * @param \Gallery\Image $image
+     *
+     * @return string
+     */
+    function facebook_path(\Gallery\Album $album, \Gallery\Image $image)
+    {
+        return template_image_path('facebook', $album, $image);
     }
 }

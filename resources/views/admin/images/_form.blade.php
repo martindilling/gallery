@@ -25,10 +25,10 @@
 <hr>
 <div class="form-group">
 	<p class="form-control-static">
-		{!! link_to(original_path($image->album_id, $image->file), original_path($image->album_id, $image->file)) !!}
+		{!! link_to(original_path($album, $image)) !!}
 	</p>
 	<p class="form-control-static">
-		{!! link_to(image_path($image->album_id, $image->file), image_path($image->album_id, $image->file)) !!}
+		{!! link_to(image_path($album, $image)) !!}
 	</p>
 </div>
 <div class="well">

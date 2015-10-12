@@ -1,0 +1,260 @@
+body {
+    overflow-y: scroll;
+}
+
+a, a:hover {
+    text-decoration: none;
+    transition: all 200ms linear;
+}
+
+.container {
+    @include make-container(0);
+}
+
+.row,
+.image-navigation-row,
+.big-image-row,
+.image-description-row,
+.error-row {
+    @include make-row(0);
+}
+
+.error-message {
+    @include make-col(0);
+    @include make-col-span(12);
+
+    text-align: center;
+}
+
+.header,
+.footer {
+    @include make-row(0);
+}
+
+.top-menu {
+    @include make-col(0);
+    @include make-col-span(12);
+}
+
+.breadcrumb {
+    padding: 0.25rem $breadcrumb-padding-horizontal;
+    background-color: inherit;
+    margin-bottom: 0;
+}
+
+.page-title {
+    @include make-col(0);
+    @include make-col-span(12);
+
+    text-align: center;
+
+    h1 {
+        font-size: $font-size-h3;
+
+        @include media-breakpoint-up(sm) {
+            font-size: $font-size-h2;
+        }
+        @include media-breakpoint-up(md) {
+            font-size: $font-size-h1;
+        }
+        @include media-breakpoint-up(lg) {
+            font-size: $display4-size;
+            font-weight: $display4-weight;
+        }
+    }
+}
+
+.page-description {
+    @include make-col();
+    @include make-col-span(12);
+
+    .card {
+        background-color: $very-light-gray;
+        margin-top: 0.75rem;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+.image-navigation {
+    @include make-col();
+    @include make-col-span(12);
+
+    .arrow-link {
+        display: inline-block;
+        touch-action: manipulation;
+        cursor: pointer;
+        user-select: none;
+        vertical-align: middle;
+        padding: 0.375rem 0.25rem;
+    }
+
+    .counter {
+        display: inline-block;
+        font-weight: normal;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        padding: 0.375rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+}
+
+.big-image-container {
+    @include make-col(0);
+    @include make-col-span(12);
+
+    min-height: 120px;
+    transition: all 200ms linear;
+
+    &.loading {
+        background: url('../images/load.gif') no-repeat center center;
+    }
+
+    &.loaderror {
+        background: url('../images/loaderror.gif') no-repeat center center;
+    }
+}
+
+.big-image {
+    margin: 0 auto;
+    max-height: 100%;
+}
+
+.img-full-height {
+    max-height: 100%;
+}
+
+
+.social-container,
+.comments-container {
+    @include make-container();
+    @include make-container-max-widths();
+}
+
+.social-row,
+.comments-row {
+    @include make-row();
+}
+
+.social,
+.comments {
+    @include make-col();
+    @include make-col-span(12);
+}
+
+.social iframe {
+    vertical-align: bottom !important;
+}
+
+.social {
+    margin-top: $spacer-y / 3;
+    margin-bottom: $spacer-y / 3;
+    line-height: 0;
+}
+
+.page-footer {
+    color: $text-muted;
+    text-align: center;
+    font-size: 80%;
+    font-weight: normal;
+    padding-bottom: 1rem;
+
+    @include make-col(0);
+    @include make-col-span(12);
+}
+
+.nothing-found {
+    @include make-col(0);
+    @include make-col-span(12);
+}
+
+.grid-item {
+    @include make-col(0);
+
+    a {
+        display: block;
+
+        .dim {
+            display: block;
+            position: absolute;
+            background: #ffffff;
+            opacity: 0.3;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            backface-visibility: hidden;
+            transition: opacity 500ms ease;
+        }
+
+        .title {
+            display: block;
+            position: absolute;
+            background: #000000;
+            opacity: 0.2;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: 5px;
+            border-radius: 0;
+            text-align: center;
+            white-space: normal;
+
+            transition: opacity 500ms ease;
+        }
+
+        &:hover,
+        &:focus {
+            .dim {
+                opacity: 0;
+            }
+
+            .title {
+                opacity: 0.5;
+            }
+        }
+
+        @include media-breakpoint-down(sm) {
+            .dim {
+                opacity: 0;
+            }
+
+            .title {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(xs) {
+        @include make-col-span(12);
+    }
+    @include media-breakpoint-up(sm) {
+        @include make-col-span(6);
+    }
+    @include media-breakpoint-up(md) {
+        @include make-col-span(4);
+    }
+    @include media-breakpoint-up(lg) {
+        @include make-col-span(3);
+    }
+    @include media-breakpoint-up(xl) {
+        @include make-col-span(2);
+    }
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 0;
+    border-radius: 0;
+}
+
+.alert-dismissable .close {
+    position: inherit;
+}
+
+

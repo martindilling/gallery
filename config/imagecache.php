@@ -53,6 +53,8 @@ return [
     'templates' => [
         'gallery'       => 'Gallery\ImageFilters\GalleryFilter',
         'thumbnail-256' => 'Gallery\ImageFilters\ThumbnailFilter',
+        'thumbnail-512' => 'Gallery\ImageFilters\BigThumbnailFilter',
+        'facebook'      => 'Gallery\ImageFilters\FacebookFilter',
     ],
 
     /*

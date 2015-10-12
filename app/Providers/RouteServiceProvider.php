@@ -5,6 +5,7 @@ namespace Gallery\Providers;
 use Gallery\Album;
 use Gallery\Image;
 use Gallery\User;
+use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -22,32 +23,41 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param  \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     public function boot(Router $router)
     {
+        parent::boot($router);
+
         $router->model('user', User::class);
         $router->model('album', Album::class);
         $router->model('image', Image::class);
 
-        $router->bind('album_slug', function($value)
-        {
-            return Album::where('slug', $value)->first();
+        $router->bind('album_slug', function ($album_slug, Route $route) {
+            $album = Album::where('slug', $album_slug)->active()->first();
+
+            abort_if_album_not_found($album);
+
+            return $album;
         });
 
-        $router->bind('image_slug', function($value)
-        {
-            return Image::where('slug', $value)->first();
-        });
+        $router->bind('image_slug', function ($image_slug, Route $route) {
+            $album = $route->parameter('album_slug');
+            $image = $album->images()->where('slug', $image_slug)->active()->first();
 
-        parent::boot($router);
+            abort_if_image_not_found($image);
+
+            return $image;
+        });
     }
 
     /**
      * Define the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param  \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     public function map(Router $router)

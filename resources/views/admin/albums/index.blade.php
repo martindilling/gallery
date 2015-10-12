@@ -19,7 +19,7 @@
 							<div class="col-md-2">
 
 								@if($album->cover)
-									<img class="img-thumbnail" src="{{ thumb_path($album->id, $album->cover->file) }}" alt="{{ $album->title }}">
+									<img class="img-thumbnail" src="{{ thumb_path($album, $album->cover) }}" alt="{{ $album->title }}">
 								@endif
 
 							</div>

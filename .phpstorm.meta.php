@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2015-08-31.
+    * Generated on 2015-10-03.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -64,6 +64,7 @@ namespace PHPSTORM_META {
             'command.route.clear' instanceof \Illuminate\Foundation\Console\RouteClearCommand,
             'command.route.list' instanceof \Illuminate\Foundation\Console\RouteListCommand,
             'command.serve' instanceof \Illuminate\Foundation\Console\ServeCommand,
+            'command.test.make' instanceof \Illuminate\Foundation\Console\TestMakeCommand,
             'command.tinker' instanceof \Illuminate\Foundation\Console\TinkerCommand,
             'command.up' instanceof \Illuminate\Foundation\Console\UpCommand,
             'command.vendor.publish' instanceof \Illuminate\Foundation\Console\VendorPublishCommand,
@@ -176,6 +177,7 @@ namespace PHPSTORM_META {
             'command.route.clear' instanceof \Illuminate\Foundation\Console\RouteClearCommand,
             'command.route.list' instanceof \Illuminate\Foundation\Console\RouteListCommand,
             'command.serve' instanceof \Illuminate\Foundation\Console\ServeCommand,
+            'command.test.make' instanceof \Illuminate\Foundation\Console\TestMakeCommand,
             'command.tinker' instanceof \Illuminate\Foundation\Console\TinkerCommand,
             'command.up' instanceof \Illuminate\Foundation\Console\UpCommand,
             'command.vendor.publish' instanceof \Illuminate\Foundation\Console\VendorPublishCommand,
@@ -288,6 +290,7 @@ namespace PHPSTORM_META {
             'command.route.clear' instanceof \Illuminate\Foundation\Console\RouteClearCommand,
             'command.route.list' instanceof \Illuminate\Foundation\Console\RouteListCommand,
             'command.serve' instanceof \Illuminate\Foundation\Console\ServeCommand,
+            'command.test.make' instanceof \Illuminate\Foundation\Console\TestMakeCommand,
             'command.tinker' instanceof \Illuminate\Foundation\Console\TinkerCommand,
             'command.up' instanceof \Illuminate\Foundation\Console\UpCommand,
             'command.vendor.publish' instanceof \Illuminate\Foundation\Console\VendorPublishCommand,
@@ -400,6 +403,7 @@ namespace PHPSTORM_META {
             'command.route.clear' instanceof \Illuminate\Foundation\Console\RouteClearCommand,
             'command.route.list' instanceof \Illuminate\Foundation\Console\RouteListCommand,
             'command.serve' instanceof \Illuminate\Foundation\Console\ServeCommand,
+            'command.test.make' instanceof \Illuminate\Foundation\Console\TestMakeCommand,
             'command.tinker' instanceof \Illuminate\Foundation\Console\TinkerCommand,
             'command.up' instanceof \Illuminate\Foundation\Console\UpCommand,
             'command.vendor.publish' instanceof \Illuminate\Foundation\Console\VendorPublishCommand,

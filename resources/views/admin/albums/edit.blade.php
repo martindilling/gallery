@@ -35,7 +35,7 @@
 								<div class="col-sm-2">
 
 									<a href="{{ route('admin.images.edit', ['image' => $image]) }}">
-										<img class="img-thumbnail" src="{{ thumb_path($image->album_id, $image->file) }}" alt="{{ $image->title }}">
+										<img class="img-thumbnail" src="{{ thumb_path($album, $image) }}" alt="{{ $image->title }}">
 									</a>
 
 								</div>

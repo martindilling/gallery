@@ -16,7 +16,7 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->integer('album_id')->unsigned()->nullable();
             $table->boolean('active')->default(false);
-            $table->string('slug');
+            $table->string('slug')->index();
             $table->string('file');
             $table->string('title');
             $table->text('description')->nullable();

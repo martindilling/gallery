@@ -1,41 +1,35 @@
 @extends('master')
 
+@section('title', "Albums")
+
 @section('content')
 
-	<ol class="breadcrumb">
-		<li class="active">Albums</li>
-	</ol>
-
-	<div class="page-header">
-		<h1 class="text-center">Albums</h1>
+	<div class="header">
+		@include('gallery.partials.breadcrumb', [
+			'breadcrumb' => [
+				['text' => 'Albums', 'url' => null],
+			]
+		])
+		@include('gallery.partials.title', ['title' => 'Albums'])
+		@include('gallery.partials.description', ['description' => null])
 	</div>
 
 	@if ($albums->count())
 		<div class="row">
-			<?php $counter = 1 ?>
 			@foreach ($albums as $album)
-				<div class="grid album col-xs-4 col-sm-3 col-md-2 col-lg-2">
-					<a href="{{ url($album->slug) }}">
+				<div class="grid-item">
+					<a href="{{ album_url($album) }}">
 						<span class="dim"></span>
-						<img src="{{ thumb_path($album->id, $album->cover->file) }}" class="img-responsive" alt="{{ $album->title }}">
+						<img src="{{ thumb_path($album, $album->cover) }}" class="img-fluid" alt="{{ $album->title }}">
 						<span class="title label label-default">{{ $album->title }}</span>
 					</a>
 				</div>
-				<?php
-					$clearfixes = '';
-					if ($counter % 3 == 0) { $clearfixes .= ' visible-xs'; }
-					if ($counter % 4 == 0) { $clearfixes .= ' visible-sm'; }
-					if ($counter % 6 == 0) { $clearfixes .= ' visible-md visible-lg'; }
-
-					$counter++;
-				?>
-				@if ( $clearfixes != '' )
-					<div class="clearfix {{ $clearfixes }}"></div>
-				@endif
 			@endforeach
 		</div>
 	@else
-		There are no albums
+		<div class="row">
+			<div class="nothing-found">There are no albums</div>
+		</div>
 	@endif
 
 @stop

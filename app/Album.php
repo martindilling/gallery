@@ -75,6 +75,16 @@ class Album extends Model
     }
 
     /**
+     * Scope a query to only include active albums.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
+    /**
      * @return bool
      */
     public function isActive()
