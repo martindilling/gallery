@@ -2,8 +2,8 @@
 
 return [
 
-    'sitename' => "Camilla's Gallery",
-    'author' => 'Camilla Gejl Olsen',
+    'sitename' => env('SITE_NAME', 'Gallery'),
+    'author' => env('SITE_AUTHOR', 'Author'),
 
     'uploadspath'  => 'uploads',
     'accepted' => [
