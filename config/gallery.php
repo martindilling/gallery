@@ -19,4 +19,8 @@ return [
         'appId' => env('FACEBOOK_APPID', 'yourappid'),
     ],
 
+    'google' => [
+        'analytics' => env('GOOGLE_ANALYTICS', 'UA-xxxxxxxx-x'),
+    ],
+
 ];
