@@ -23,6 +23,7 @@
 						'method'    => 'POST',
 						'files'     => 'true',
 						'data-ajax' => 'true',
+						'id'        => 'dropzone-uploader',
 						'class'     => 'dropzone'
 					]) !!}
 					{!! Form::close() !!}
